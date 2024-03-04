@@ -50,7 +50,7 @@ class Lightning_driver(Dummy_driver):
         cell_calc = unit_to_user("length", "angstrom", cell.T)
         # Do the actual calculation
         
-        pot, force, stress = self.alchemical_calc.calculate(pos_calc, cell_calc)
+        pot, force, stress, extras = self.alchemical_calc.calculate(pos_calc, cell_calc)
         
         pot_ipi = unit_to_internal("energy", "electronvolt", pot)
         force_ipi = unit_to_internal("force", "ev/ang", force.reshape(-1, 3))
@@ -59,7 +59,7 @@ class Lightning_driver(Dummy_driver):
         # TODO: implement actual virial calculation
         vir_calc = stress
         vir_ipi = unit_to_internal("energy", "electronvolt", vir_calc.T)
-        extras = ""
+        #extras = ""
         
         return pot_ipi, force_ipi, vir_ipi, extras
 
